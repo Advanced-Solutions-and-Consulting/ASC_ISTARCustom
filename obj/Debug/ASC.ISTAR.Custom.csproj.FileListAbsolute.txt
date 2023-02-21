@@ -1,0 +1,7 @@
+E:\Program Files\Acumatica ERP\Acu21209\App_Data\Projects\ASC.ISTAR.Custom\src\ASC.ISTAR.Custom\obj\Debug\ASC.ISTAR.Custom.csproj.CoreCompileInputs.cache
+E:\Program Files\Acumatica ERP\Acu21209\Bin\ASC.ISTAR.Custom.dll
+E:\Program Files\Acumatica ERP\Acu21209\Bin\ASC.ISTAR.Custom.pdb
+E:\Program Files\Acumatica ERP\Acu21209\App_Data\Projects\ASC.ISTAR.Custom\src\ASC.ISTAR.Custom\obj\Debug\ASC.ISTAR.Custom.dll
+E:\Program Files\Acumatica ERP\Acu21209\App_Data\Projects\ASC.ISTAR.Custom\src\ASC.ISTAR.Custom\obj\Debug\ASC.ISTAR.Custom.pdb
+E:\Program Files\Acumatica ERP\Acu21209\App_Data\Projects\ASC.ISTAR.Custom\src\ASC.ISTAR.Custom\obj\Debug\ASC.ISTAR.Custom.csproj.AssemblyReference.cache
+E:\Program Files\Acumatica ERP\Acu21209\App_Data\Projects\ASC.ISTAR.Custom\src\ASC.ISTAR.Custom\obj\Debug\ASC.ISTAR.Custom.csproj.CopyComplete
