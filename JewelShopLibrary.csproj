@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70449770-0133-4BD9-9E2A-68C58ED12298}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ASCISTARCustom</RootNamespace>
+    <AssemblyName>JewelShopLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AcucodeMetalsApiClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Bin\AcucodeMetalsApiClient.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PX.Common">
+      <HintPath>E:\Program Files\Acumatica ERP\Acu21209\Bin\PX.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PX.Common.Std">
+      <HintPath>E:\Program Files\Acumatica ERP\Acu21209\Bin\PX.Common.Std.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PX.Data">
+      <HintPath>E:\Program Files\Acumatica ERP\Acu21209\Bin\PX.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PX.Data.BQL.Fluent">
+      <HintPath>E:\Program Files\Acumatica ERP\Acu21209\Bin\PX.Data.BQL.Fluent.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PX.Objects">
+      <HintPath>E:\Program Files\Acumatica ERP\Acu21209\Bin\PX.Objects.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonHelpers\AuditSystemFieldsDAC.cs" />
+    <Compile Include="Cost\ASCIStarAPVendorPriceMaintExt.cs" />
+    <Compile Include="Cost\ASCIStarCostHelper.cs" />
+    <Compile Include="Cost\ASCIStarVendorMaintExt.cs" />
+    <Compile Include="Cost\DAC\ASCIStarAPVendorPriceExt.cs" />
+    <Compile Include="Cost\DAC\ASCIStarINUnitExt.cs" />
+    <Compile Include="Cost\DAC\ASCIStarItemCostRollup.cs" />
+    <Compile Include="Cost\DAC\ASCIStarPOVendorInventoryExt.cs" />
+    <Compile Include="Cost\DAC\ASCIStarVendorPricingConfig.cs" />
+    <Compile Include="Cost\Descriptor\ASCIStarItemPrice.cs" />
+    <Compile Include="Cost\Descriptor\ASCIStarMarket.cs" />
+    <Compile Include="Cost\Descriptor\CommodityType.cs" />
+    <Compile Include="Cost\Descriptor\ContractSurchargeType.cs" />
+    <Compile Include="Cost\Descriptor\CostBasisType.cs" />
+    <Compile Include="Cost\Descriptor\CostingType.cs" />
+    <Compile Include="Cost\Descriptor\CostRollupType.cs" />
+    <Compile Include="CustomerAllowance\ASCIStarCustomerAllowanceMaint.cs" />
+    <Compile Include="CustomerAllowance\ASCIStarCustomerMaintAllowanceExt.cs" />
+    <Compile Include="CustomerAllowance\DAC\ASCIStarCustomerAllowance.cs" />
+    <Compile Include="DCLocation\DAC\ASCIStarCRLocationExt.cs" />
+    <Compile Include="DCLocation\DAC\ASCIStarSOLineExt.cs" />
+    <Compile Include="Inventory\DAC\ASCIStarINInventoryItemExt.cs" />
+    <Compile Include="Inventory\DAC\ASCIStarINItemClassExt.cs" />
+    <Compile Include="Inventory\DAC\ASCIStarInventoryItemCommodity.cs" />
+    <Compile Include="IN\DAC\INCompliance.cs" />
+    <Compile Include="IN\DAC\INJewelryItemData.cs" />
+    <Compile Include="IN\GraphExt\InventoryItemMaintExt.cs" />
+    <Compile Include="IN\Helpers\INConstants.cs" />
+    <Compile Include="PDS\ASCIstarINKitSpecMaintExt.cs" />
+    <Compile Include="PDS\ASCIstarInventoryItemMaintExt.cs" />
+    <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrAttribute.cs" />
+    <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrExt.cs" />
+    <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrVendorQuote.cs" />
+    <Compile Include="PDS\DAC\ASCIStarINKitSpecNonStkDetExt.cs" />
+    <Compile Include="PDS\DAC\ASCIStarINKitSpecStkDetExt.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Purchasing\ASCIstarPOEntryExt.cs" />
+    <Compile Include="Purchasing\DAC\ASCIStarPOLineExt.cs" />
+    <Compile Include="Purchasing\DAC\ASCIStarPOOrderExt.cs" />
+    <Compile Include="Purchasing\DAC\ASCIStarVendorExt.cs" />
+    <Compile Include="SalesOrder\DAC\ASCIStarSOOrderExt.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
