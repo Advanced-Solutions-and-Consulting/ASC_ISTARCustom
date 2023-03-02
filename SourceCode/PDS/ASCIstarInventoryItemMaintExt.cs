@@ -1,15 +1,19 @@
 using System;
 using System.Collections;
 using PX.Data;
+using PX.Data.BQL.Fluent;
 using PX.Objects.AP;
 using PX.Objects.PO;
 using PX.Objects.IN;
 using ASCISTARCustom.Inventory.DAC;
+using ASCISTARCustom.PDS.CacheExt;
 
 namespace ASCISTARCustom
 {
-  public class ASCIstarInventoryItemMaintExt : PXGraphExtension<InventoryItemMaint>
-  {
+    public class ASCIstarInventoryItemMaintExt : PXGraphExtension<InventoryItemMaint>
+    {
+        public static bool IsActive() => true;
+
         #region Selects
 
         public PXSelect<INJewelryItemData, Where<INJewelryItemData.inventoryID, Equal<Current<InventoryItem.inventoryID>>>> JewelryItemDataSelect;
@@ -21,7 +25,6 @@ namespace ASCISTARCustom
             Where<POVendorInventory.inventoryID, Equal<Current<InventoryItem.inventoryID>>,
             And<POVendorInventory.vendorID, Equal<Current<InventoryItemCurySettings.preferredVendorID>>,
             And<POVendorInventory.vendorID, Equal<Current<InventoryItemCurySettings.preferredVendorLocationID>>>>>> DefaultVendorItem;
-
 
         //public PXSelect<ASCIStarItemCostRollup, Where<ASCIStarItemCostRollup.inventoryID, Equal<Current<InventoryItem.inventoryID>>, And<ASCIStarItemCostRollup.bAccountID, NotEqual<CompanyBAccount.bAccountID>>>> VendorCostRollup;
 
@@ -229,7 +232,7 @@ namespace ASCISTARCustom
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrFreightCost>(cache, row, !UseMarketConfig);
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrLaborCost>(cache, row, !UseMarketConfig);
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrDutyCost>(cache, row, !UseMarketConfig);
-            PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrDutyCostPct >(cache, row, !UseMarketConfig);
+            PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrDutyCostPct>(cache, row, !UseMarketConfig);
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrHandlingCost>(cache, row, !UseMarketConfig);
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrPackagingCost>(cache, row, !UseMarketConfig);
             PXUIFieldAttribute.SetVisible<ASCIStarINInventoryItemExt.usrOtherCost>(cache, row, !UseMarketConfig);
@@ -277,7 +280,7 @@ namespace ASCISTARCustom
             {
 
                 ASCIStarINInventoryItemExt ext = row.GetExtension<ASCIStarINInventoryItemExt>();
-                if(ext.UsrActualGRAMGold > 0)
+                if (ext.UsrActualGRAMGold > 0)
                 {
 
                     POVendorInventory vendorItem = DefaultVendorItem.Select();
@@ -356,7 +359,7 @@ namespace ASCISTARCustom
                 return;
 
             decimal mult = 1.000000m;
-            switch(attr.MetalType.ToUpper())
+            switch (attr.MetalType.ToUpper())
             {
                 case "24K":
                     mult = 24.000000m;
@@ -394,7 +397,7 @@ namespace ASCISTARCustom
             }
 
             PXTrace.WriteInformation($"{attr.MetalType}:{mult}");
-            cache.SetValueExt<ASCIStarINInventoryItemExt.usrPricingGRAMGold>(cache.Current, itemext.UsrActualGRAMGold * (mult/24));
+            cache.SetValueExt<ASCIStarINInventoryItemExt.usrPricingGRAMGold>(cache.Current, itemext.UsrActualGRAMGold * (mult / 24));
 
         }
 
@@ -414,7 +417,7 @@ namespace ASCISTARCustom
 
                 }
                 POVendorInventory vendorItem = DefaultVendorItem.Select();
-                foreach(POVendorInventory vitem in Base.VendorItems.Select())
+                foreach (POVendorInventory vitem in Base.VendorItems.Select())
                 {
                     PXTrace.WriteInformation($"{vitem.VendorID}:{vitem.IsDefault}");
 
@@ -581,7 +584,7 @@ namespace ASCISTARCustom
                 INJewelryItemData_MetalType_FieldUpdated(cache, e, InvokeBaseHandler);
             }
         }
-       
+
         protected virtual void InventoryItem_UsrContractSurcharge_FieldUpdated(PXCache cache, PXFieldUpdatedEventArgs e, PXFieldUpdated InvokeBaseHandler)
         {
             if (InvokeBaseHandler != null)
@@ -594,7 +597,7 @@ namespace ASCISTARCustom
                 if (ext.UsrActualGRAMGold > 0)
                 {
                     decimal stdIncrement = (decimal)ext.UsrPricingGRAMGold / (decimal)ext.UsrActualGRAMGold / 31.10348m;
-                    decimal ContractIncrement = stdIncrement * (1 + (decimal)ext.UsrContractSurcharge / 100.0000m); 
+                    decimal ContractIncrement = stdIncrement * (1 + (decimal)ext.UsrContractSurcharge / 100.0000m);
                     PXTrace.WriteInformation($"InventoryItem_UsrContractSurcharge_FieldUpdated: stdIncrement{stdIncrement}: ContractIncrement:{ContractIncrement} SurchargePct{ext.UsrContractSurcharge}");
                     cache.SetValue<ASCIStarINInventoryItemExt.usrContractIncrement>(cache.Current, ContractIncrement);
 

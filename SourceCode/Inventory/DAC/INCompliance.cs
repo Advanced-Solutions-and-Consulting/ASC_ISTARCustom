@@ -9,7 +9,7 @@ namespace ASCISTARCustom.Inventory.DAC
 {
     [Serializable]
     [PXCacheName("Compliance DAC")]
-    public class INCompliance : AuditSystemFieldsDAC, IBqlTable
+    public class INCompliance : AuditSystemFields, IBqlTable
     {
         #region InventoryID
         [PXDBInt(IsKey = true)]
@@ -128,6 +128,12 @@ namespace ASCISTARCustom.Inventory.DAC
         [PXUIField(DisplayName = "Waiver Reason & Change Reason")]
         public virtual string WaiverChangeReason { get; set; }
         public abstract class waiverChangeReason : PX.Data.BQL.BqlString.Field<waiverChangeReason> { }
+        #endregion
+
+        #region NoteID
+        [PXNote()]
+        public virtual Guid? NoteID { get; set; }
+        public abstract class noteID : PX.Data.BQL.BqlGuid.Field<noteID> { }
         #endregion
     }
 }

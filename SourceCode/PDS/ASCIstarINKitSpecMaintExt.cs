@@ -16,6 +16,7 @@ using System.Collections;
 //using InfoSmartSearch;
 using CRLocation = PX.Objects.CR.Standalone.Location;
 using System.Reflection;
+using ASCISTARCustom.PDS.CacheExt;
 
 namespace ASCISTARCustom
 {
@@ -41,6 +42,13 @@ namespace ASCISTARCustom
         public PXSelect<POVendorInventory, Where<POVendorInventory.inventoryID, Equal<Current<INKitSpecHdr.kitInventoryID>>>> VendorItems;
         public PXSelect<POVendorInventory, Where<POVendorInventory.inventoryID, Equal<Required<INKitSpecHdr.kitInventoryID>>, And<POVendorInventory.isDefault, Equal<True>>>> DefaultVendorItem;
         public PXSelect<InventoryItem, Where<InventoryItem.inventoryID, Equal<Required<INKitSpecStkDet.compInventoryID>>>> BaseItem;
+
+
+        public SelectFrom<ASCIStarINKitSpecJewelryItem>
+                 .Where<ASCIStarINKitSpecJewelryItem.kitInventoryID.IsEqual<INKitSpecHdr.kitInventoryID.FromCurrent>
+                    .And<ASCIStarINKitSpecJewelryItem.revisionID.IsEqual<INKitSpecHdr.revisionID.FromCurrent>>>
+                        .View JewelryItemView;
+
 
         public class today : PX.Data.BQL.BqlDateTime.Constant<today>
         {
@@ -170,17 +178,17 @@ namespace ASCISTARCustom
         protected void InventoryItem_UsrContractCost_CacheAttached(PXCache sender) { }
 
 
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        protected void INKitSpecHdr_UsrActualGRAMSilver_CacheAttached(PXCache sender) { }
+        //[PXMergeAttributes(Method = MergeMethod.Append)]
+        //protected void INKitSpecHdr_UsrActualGRAMSilver_CacheAttached(PXCache sender) { }
 
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        protected void INKitSpecHdr_UsrPricingGRAMSilver_CacheAttached(PXCache sender) { }
+        //[PXMergeAttributes(Method = MergeMethod.Append)]
+        //protected void INKitSpecHdr_UsrPricingGRAMSilver_CacheAttached(PXCache sender) { }
 
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        protected void INKitSpecHdr_UsrActualGRAMGold_CacheAttached(PXCache sender) { }
+        //[PXMergeAttributes(Method = MergeMethod.Append)]
+        //protected void INKitSpecHdr_UsrActualGRAMGold_CacheAttached(PXCache sender) { }
 
-        [PXMergeAttributes(Method = MergeMethod.Append)]
-        protected void INKitSpecHdr_UsrPricingGRAMGold_CacheAttached(PXCache sender) { }
+        //[PXMergeAttributes(Method = MergeMethod.Append)]
+        //protected void INKitSpecHdr_UsrPricingGRAMGold_CacheAttached(PXCache sender) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
         [PXFormula(typeof(Switch<Case<Where<Current<APVendorPrice.uOM>, NotEqual<TOZ>>, Null>, Div<APVendorPrice.salesPrice, TOZ2GRAM>>))]
@@ -195,7 +203,7 @@ namespace ASCISTARCustom
         protected void APVendorPrice_UsrIncrementPerGram_CacheAttached(PXCache sender) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-        [PXDBDefault(typeof(INKitSpecHdr.kitInventoryID))]
+     //   [PXDBDefault(typeof(INKitSpecHdr.kitInventoryID))]
         [PXDefault(typeof(INKitSpecHdr.kitInventoryID))]
         protected void APVendorPrice_InventoryID_CacheAttached(PXCache sender) { }
 

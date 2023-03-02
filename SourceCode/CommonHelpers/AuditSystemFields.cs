@@ -4,20 +4,14 @@ using System;
 namespace ASCISTARCustom.CommonHelpers
 {
     [Serializable]
-    [PXCacheName("Base System Fields DAC")]
-    public class AuditSystemFieldsDAC
+    [PXCacheName("Base System Fields")]
+    public class AuditSystemFields
     {
         #region Tstamp
         [PXDBTimestamp()]
         [PXUIField(DisplayName = "Tstamp")]
         public virtual byte[] Tstamp { get; set; }
         public abstract class tstamp : PX.Data.BQL.BqlByteArray.Field<tstamp> { }
-        #endregion
-
-        #region NoteID
-        [PXNote()]
-        public virtual Guid? NoteID { get; set; }
-        public abstract class noteID : PX.Data.BQL.BqlGuid.Field<noteID> { }
         #endregion
 
         #region CreatedByID

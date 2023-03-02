@@ -58,6 +58,10 @@ namespace ASCISTARCustom
         {
             public londonPM() : base(LondonPM) { }
         }
+        public class defaultMarket : PX.Data.BQL.BqlString.Constant<defaultMarket>
+        {
+            public defaultMarket() : base(MessageLondonPM) { }
+        }
 
     }
     public class MarketClass : PX.Data.BQL.BqlString.Constant<MarketClass>

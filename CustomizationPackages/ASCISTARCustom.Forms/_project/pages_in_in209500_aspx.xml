@@ -3,6 +3,301 @@
         <Children Key="Items">
             <AddItem>
                 <PXTabItem TypeFullName="PX.Web.UI.PXTabItem">
+                    <Prop Key="Text" Value="JEWELRY" />
+                    <Children Key="Template">
+                        <AddItem>
+                            <PXFormView TypeFullName="PX.Web.UI.PXFormView">
+                                <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                <Prop Key="ID" Value="CstFormView6" />
+                                <Prop Key="RenderStyle" Value="Simple" />
+                                <Prop Key="DataSourceID" Value="ds" />
+                                <Prop Key="DataMember" Value="JewelryItemView" />
+                                <Children Key="Template">
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXLayoutRule7" />
+                                            <Prop Key="StartColumn" Value="True" />
+                                            <Prop Key="LabelsWidth" Value="SM" />
+                                            <Prop Key="ControlSize" Value="XM" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXLayoutRule9" />
+                                            <Prop Key="StartGroup" Value="True" />
+                                            <Prop Key="GroupCaption" Value="CLASSIFICATION" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="ShortDesc" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="ID" Value="CstPXTextEdit23" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="LongDesc" />
+                                            <Prop Key="TextMode" Value="MultiLine" />
+                                            <Prop Key="Wrap" Value="True" />
+                                            <Prop Key="Height" Value="50" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="ID" Value="CstPXTextEdit17" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector24" />
+                                            <Prop Key="DataField" Value="StyleStatus" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector12" />
+                                            <Prop Key="DataField" Value="CustomerCode" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector14" />
+                                            <Prop Key="DataField" Value="InvCategory" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector16" />
+                                            <Prop Key="DataField" Value="ItemType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector15" />
+                                            <Prop Key="DataField" Value="ItemSubType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector11" />
+                                            <Prop Key="DataField" Value="Collection" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector20" />
+                                            <Prop Key="DataField" Value="MetalType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="MetalNote" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="ID" Value="CstPXTextEdit19" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector18" />
+                                            <Prop Key="DataField" Value="MetalColor" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector22" />
+                                            <Prop Key="DataField" Value="Plating" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector13" />
+                                            <Prop Key="DataField" Value="Finishes" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector25" />
+                                            <Prop Key="DataField" Value="VendorMaker" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector21" />
+                                            <Prop Key="DataField" Value="OrgCountry" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXLayoutRule8" />
+                                            <Prop Key="StartColumn" Value="True" />
+                                            <Prop Key="LabelsWidth" Value="SM" />
+                                            <Prop Key="ControlSize" Value="XM" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXLayoutRule TypeFullName="PX.Web.UI.PXLayoutRule">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXLayoutRule10" />
+                                            <Prop Key="StartGroup" Value="True" />
+                                            <Prop Key="GroupCaption" Value="STONE" />
+                                            <Children Key="Controls" />
+                                        </PXLayoutRule>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector38" />
+                                            <Prop Key="DataField" Value="StoneType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="WebNotesComment" />
+                                            <Prop Key="TextMode" Value="MultiLine" />
+                                            <Prop Key="Height" Value="50" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="ID" Value="CstPXTextEdit39" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXTextEdit TypeFullName="PX.Web.UI.PXTextEdit">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="DataField" Value="StoneComment" />
+                                            <Prop Key="TextMode" Value="MultiLine" />
+                                            <Prop Key="Height" Value="50" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                            <Prop Key="ID" Value="CstPXTextEdit35" />
+                                        </PXTextEdit>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector34" />
+                                            <Prop Key="DataField" Value="StoneColor" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector37" />
+                                            <Prop Key="DataField" Value="StoneShape" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector36" />
+                                            <Prop Key="DataField" Value="StoneCreation" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector29" />
+                                            <Prop Key="DataField" Value="GemstoneTreatment" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector33" />
+                                            <Prop Key="DataField" Value="SettingType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector27" />
+                                            <Prop Key="DataField" Value="Findings" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector28" />
+                                            <Prop Key="DataField" Value="FindingsSubType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector26" />
+                                            <Prop Key="DataField" Value="ChainType" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector31" />
+                                            <Prop Key="DataField" Value="RingLength" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector32" />
+                                            <Prop Key="DataField" Value="RingSize" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                    <AddItem>
+                                        <PXSelector TypeFullName="PX.Web.UI.PXSelector">
+                                            <Prop Key="Virtual:ApplyStylesheetSkin" />
+                                            <Prop Key="ID" Value="CstPXSelector30" />
+                                            <Prop Key="DataField" Value="OD" />
+                                            <Prop Key="CommitChanges" Value="True" />
+                                        </PXSelector>
+                                    </AddItem>
+                                </Children>
+                            </PXFormView>
+                        </AddItem>
+                    </Children>
+                </PXTabItem>
+            </AddItem>
+            <AddItem>
+                <PXTabItem TypeFullName="PX.Web.UI.PXTabItem">
                     <Prop Key="Text" Value="Costing" />
                     <Children Key="Template">
                         <AddItem>

@@ -7,21 +7,28 @@ using PX.Objects.CS;
 using PX.Objects.IN;
 using static ASCISTARCustom.Inventory.Descriptor.Constants.INConstants;
 
-namespace ASCISTARCustom.Inventory.DAC
+namespace ASCISTARCustom.PDS.CacheExt
 {
-    [Serializable]
-    [PXCacheName("Jewelry Item Data DAC")]
-    public class INJewelryItemData : AuditSystemFields, IBqlTable
+    public class ASCIStarINKitSpecJewelryItem : AuditSystemFields, IBqlTable
     {
         public static bool IsActive() => true;
 
-        #region InventoryID
-        [PXDBInt(IsKey = true)]
-        [PXParent(typeof(SelectFrom<InventoryItem>.Where<InventoryItem.inventoryID.IsEqual<inventoryID.FromCurrent>>))]
-        [PXDBDefault(typeof(InventoryItem.inventoryID))]
-        [PXUIField(DisplayName = "Inventory ID", Visible = false)]
-        public virtual int? InventoryID { get; set; }
-        public abstract class inventoryID : BqlInt.Field<inventoryID> { }
+        #region KitInventoryID
+        [Inventory(IsKey = true, Visibility = PXUIVisibility.SelectorVisible, DisplayName = "Kit Inventory ID", Visible = false)]
+        [PXRestrictor(typeof(Where<InventoryItem.kitItem, Equal<boolTrue>>), PX.Objects.IN.Messages.InventoryItemIsNotaKit)]
+        [PXDBDefault(typeof(INKitSpecHdr.kitInventoryID))]
+        [PXParent(typeof(SelectFrom<INKitSpecHdr>.Where<INKitSpecHdr.kitInventoryID.IsEqual<kitInventoryID.FromCurrent>.And<INKitSpecHdr.revisionID.IsEqual<revisionID.FromCurrent>>>))]
+        public virtual int? KitInventoryID { get; set; }
+        public abstract class kitInventoryID : PX.Data.BQL.BqlInt.Field<kitInventoryID> { }
+        #endregion
+
+        #region RevisionID
+        [PXDBString(10, IsUnicode = true, IsKey = true, InputMask = ">aaaaaaaaaa")]
+        [PXDBDefault(typeof(INKitSpecHdr.revisionID))]
+        [PXUIField(DisplayName = "Revision", Visibility = PXUIVisibility.SelectorVisible)]
+        [PXSelector(typeof(Search<INKitSpecHdr.revisionID, Where<INKitSpecHdr.kitInventoryID, Equal<Optional<INKitSpecHdr.kitInventoryID>>>>))]
+        public virtual string RevisionID { get; set; }
+        public abstract class revisionID : PX.Data.BQL.BqlString.Field<revisionID> { }
         #endregion
 
         #region ShortDesc

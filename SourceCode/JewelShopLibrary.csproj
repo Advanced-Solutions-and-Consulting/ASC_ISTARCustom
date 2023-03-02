@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommonHelpers\AuditSystemFieldsDAC.cs" />
+    <Compile Include="CommonHelpers\AuditSystemFields.cs" />
     <Compile Include="Cost\ASCIStarAPVendorPriceMaintExt.cs" />
     <Compile Include="Cost\ASCIStarCostHelper.cs" />
     <Compile Include="Cost\ASCIStarVendorMaintExt.cs" />
@@ -91,6 +91,7 @@
     <Compile Include="Inventory\Descriptor\Constants\INConstants.cs" />
     <Compile Include="PDS\ASCIstarINKitSpecMaintExt.cs" />
     <Compile Include="PDS\ASCIstarInventoryItemMaintExt.cs" />
+    <Compile Include="PDS\CacheExt\ASCIStarINKitSpecJewelryItem.cs" />
     <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrAttribute.cs" />
     <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrExt.cs" />
     <Compile Include="PDS\DAC\ASCIStarINKitSpecHdrVendorQuote.cs" />

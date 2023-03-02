@@ -28,7 +28,7 @@ namespace ASCISTARCustom
 
         public class Contract
         {
-            
+
             string _Source;
             string _Commodity;
             decimal _CommodityPrice;
@@ -116,7 +116,7 @@ namespace ASCISTARCustom
                 MarketPerFineOz = new Dictionary<string, decimal>();
                 BasisPerFineOz = new Dictionary<string, decimal>();
                 CommodityItem = PXSelect<InventoryItem, Where<InventoryItem.inventoryCD, Equal<Required<InventoryItem.inventoryCD>>>>.Select(_graph, MarketCommodity);
-                
+
                 EffectivePerFineOz = new Dictionary<string, decimal>();
                 MarketPerFineOz = new Dictionary<string, decimal>();
                 BasisPerFineOz = new Dictionary<string, decimal>();
@@ -145,7 +145,7 @@ namespace ASCISTARCustom
 
 
 
-            public decimal EffectivePerOz(string fineness = null) { return MarketPerFineOz[fineness] ; }
+            public decimal EffectivePerOz(string fineness = null) { return MarketPerFineOz[fineness]; }
             public decimal EffectivePerGram(string fineness = null) { Fineness = Fineness ?? MarketCommodity; return EffectivePerFineOz[Fineness] / 31.103480m; }
             public decimal EffectivePerDWT(string fineness = null) { Fineness = Fineness ?? MarketCommodity; return EffectivePerFineOz[Fineness] / 20.00000m; }
 
@@ -208,7 +208,7 @@ namespace ASCISTARCustom
                 {
                     BasisPerFineOz.Clear();
                     APVendorPrice vendorPrice = FindMarketPrice(_graph, ItemVendor, CommodityItem, "TOZ", Fineness, EffectiveDate);
-                    if(vendorPrice == null)
+                    if (vendorPrice == null)
                     {
                         PXTrace.WriteWarning($"FindMarketPrice returned null using ItemVendor:{ItemVendor.BAccountID} CommodityItem:{CommodityItem.InventoryCD} EffectiveDate:{EffectiveDate}");
                         return;
@@ -309,7 +309,7 @@ namespace ASCISTARCustom
                 string msg = "";
                 APVendorPrice marketPrice = new APVendorPrice();
                 VendorClass vc = PXSelect<VendorClass, Where<VendorClass.vendorClassID, Equal<Required<Vendor.vendorClassID>>>>.Select(graph, Market.VendorClassID);
-                if(vc.VendorClassID == "MARKET" ) 
+                if (vc.VendorClassID == "MARKET")
                     msg += $"Market   :{Market.AcctCD}{System.Environment.NewLine}";
                 else
                     msg += $"Basis    :{Market.AcctCD}{System.Environment.NewLine}";
@@ -337,8 +337,8 @@ namespace ASCISTARCustom
                     throw new PXException($"{Market.AcctCD} does not contain a valid price for {commodity.InventoryCD} on {effectiveDate.ToString("MM/dd/yyyy")}.");
                 }
 
-                msg += $"Price    :{marketPrice.SalesPrice}{ System.Environment.NewLine}";
-                msg += $"Effective:{effectiveDate.ToString("MM/dd/yyyy")}{ System.Environment.NewLine}";
+                msg += $"Price    :{marketPrice.SalesPrice}{System.Environment.NewLine}";
+                msg += $"Effective:{effectiveDate.ToString("MM/dd/yyyy")}{System.Environment.NewLine}";
 
                 if (UOM != "TOZ") //Convert To UNIT OF MEASURE
                 {
@@ -478,7 +478,7 @@ namespace ASCISTARCustom
 
                     if (ItemExt.UsrPricingGRAMGold > 0)
                     {
-                        GoldBasis = new Basis(_graph, (int)_itemVendor.BAccountID, _itemVendorBasis.UsrMarketID,  "24K", _EffectiveDate);
+                        GoldBasis = new Basis(_graph, (int)_itemVendor.BAccountID, _itemVendorBasis.UsrMarketID, "24K", _EffectiveDate);
                     }
                     if (ItemExt.UsrPricingGRAMSilver > 0)
                     {
@@ -814,12 +814,12 @@ namespace ASCISTARCustom
                     And<APVendorPrice.effectiveDate, LessEqual<Required<APVendorPrice.effectiveDate>>>>>> CommodityPrice;
 
             //public PXSelect<ASCIStarVendorExt, Where<Vendor.acctCD, Equal<MarketList.londonPM>>> VendorDefaultMarket;
-            public PXSelect<Vendor, Where<Vendor.acctCD, Equal<DEFAULTMARKET>>> DefaultMarket;
-            public class DEFAULTMARKET : PX.Data.BQL.BqlString.Constant<DEFAULTMARKET>
-            {
-                public static readonly string value = "LONDON PM";
-                public DEFAULTMARKET() : base(value) { }
-            }
+            //public PXSelect<BAccount, Where<BAccount.acctCD, Equal<DEFAULTMARKET>>> DefaultMarket;
+            //public class DEFAULTMARKET : PX.Data.BQL.BqlString.Constant<DEFAULTMARKET>
+            //{
+            //    public static readonly string value = "LONDON PM";
+            //    public DEFAULTMARKET() : base(value) { }
+            //}
             public PXSelectJoin<INKitSpecHdr, InnerJoin<INKitSpecStkDet, On<INKitSpecHdr.kitInventoryID, Equal<INKitSpecStkDet.kitInventoryID>>>,
                     Where<INKitSpecStkDet.compInventoryID, Equal<Required<INKitSpecStkDet.compInventoryID>>>> StockLines;
 
@@ -837,12 +837,12 @@ namespace ASCISTARCustom
             public string commodityType { get; set; }
             public string market { get; set; }
 
-            public  decimal GoldWgt { get; set; }
-            public  decimal fineGoldWgt { get; set; }
-            public  decimal SilverWgt { get; set; }
-            public  decimal fineSilverWgt { get; set; }
-            public  decimal finePlatinumWgt { get; set; }
-            public  decimal marketCommodityCost { get; set; }
+            public decimal GoldWgt { get; set; }
+            public decimal fineGoldWgt { get; set; }
+            public decimal SilverWgt { get; set; }
+            public decimal fineSilverWgt { get; set; }
+            public decimal finePlatinumWgt { get; set; }
+            public decimal marketCommodityCost { get; set; }
 
             public costBasis CostBasis { get; set; }
 
@@ -938,9 +938,8 @@ namespace ASCISTARCustom
                     if (marketID == null)
                     {
                         msg += $"Market Def :LONDON PM{Environment.NewLine}";
-                        Vendor market = DefaultMarket.Select();
-                        marketID = market.BAccountID;
-
+                        //  BAccount market = DefaultMarket.Select();
+                        marketID = SelectFrom<Vendor>.Where<Vendor.acctCD.IsEqual<MarketList.defaultMarket>>.View.Select(graph)?.TopFirst.BAccountID;
                     }
 
                     /*
@@ -973,8 +972,16 @@ namespace ASCISTARCustom
 
                     if (itemVendor == null || itemVendor.VendorID == null)
                     {
-                        foreach (POVendorInventory vitem in SelectFrom<POVendorInventory>
-                            .Where<POVendorInventory.inventoryID.IsEqual<@P.AsInt>>.View.Select(graph, item.InventoryID))
+                        var poVendorInventory = SelectFrom<POVendorInventory>
+                            .Where<POVendorInventory.inventoryID.IsEqual<@P.AsInt>>.View.Select(graph, item.InventoryID).FirstTableItems;
+
+                        if (poVendorInventory.Count() == 0)
+                        {
+                            throw new PXSetPropertyException("The item has not Vendor prices, please, setup it on Vendor Prices screen", PXErrorLevel.RowError);
+                            //  PXUIFieldAttribute.SetError<INKitSpecStkDet.compInventoryID>(graph.Caches[] , "Error Message");
+                        }
+
+                        foreach (POVendorInventory vitem in poVendorInventory)
                         {
                             if (vitem.IsDefault == true)
                                 itemVendor = vitem;
@@ -1045,7 +1052,7 @@ namespace ASCISTARCustom
                     this.CostRollupTotal[CostRollupType.Duty] = (itemExt.UsrDutyCostPct ?? 0.0000m) / 100.0000m * totalNoDuty;
                     PXTrace.WriteInformation(msg);
                 }
-                catch(Exception err)
+                catch (Exception err)
                 {
                     PXTrace.WriteInformation(msg);
                     throw err;
@@ -1073,7 +1080,7 @@ namespace ASCISTARCustom
                 decimal ceiling = floor + increment;
                 matrix = (floor + ceiling) / 2.000000m;
                 msg += $"basis    :{basis}{Environment.NewLine}increment:{increment}{Environment.NewLine}market    :{market}{Environment.NewLine}Steps     :{steps}{Environment.NewLine}floor     :{floor}{Environment.NewLine}ceiling   :{ceiling}{Environment.NewLine}matrix    :{market}";
-                
+
                 PXTrace.WriteInformation(msg);
 
                 return matrix;
@@ -1100,7 +1107,7 @@ namespace ASCISTARCustom
 
                             costTotal += CostRollupTotal[Key];
                         }
-                        if(Key == CostRollupType.Commodity)
+                        if (Key == CostRollupType.Commodity)
                         {
                             costTotal += marketCommodityCost;
                         }
@@ -1228,7 +1235,7 @@ namespace ASCISTARCustom
 
 
 
-                
+
             //    marketPrice =
             //    new PXSelect<APVendorPrice,
             //    Where<APVendorPrice.vendorID, Equal<Required<APVendorPrice.vendorID>>,
