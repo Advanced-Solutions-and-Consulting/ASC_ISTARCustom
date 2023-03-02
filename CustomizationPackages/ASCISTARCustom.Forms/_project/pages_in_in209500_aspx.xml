@@ -569,7 +569,7 @@
                                         </PXGridLevel>
                                     </AddItem>
                                 </Children>
-                                <Prop Key="SkinID" Value="Primary" />
+                                <Prop Key="SkinID" Value="Inquire" />
                                 <Prop Key="Caption" Value="Price Basis" />
                                 <Prop Key="CaptionVisible" Value="True" />
                                 <Prop Key="Width" Value="100%" />
