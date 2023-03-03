@@ -7,6 +7,11 @@ using PX.Objects.PO;
 using PX.Objects.IN;
 using ASCISTARCustom.Inventory.DAC;
 using ASCISTARCustom.PDS.CacheExt;
+using System.Collections.Generic;
+using PX.Api.Models;
+using PX.Data.BQL;
+using PX.Common;
+using PX.Objects.CR.Standalone;
 
 namespace ASCISTARCustom
 {
@@ -28,6 +33,14 @@ namespace ASCISTARCustom
 
         //public PXSelect<ASCIStarItemCostRollup, Where<ASCIStarItemCostRollup.inventoryID, Equal<Current<InventoryItem.inventoryID>>, And<ASCIStarItemCostRollup.bAccountID, NotEqual<CompanyBAccount.bAccountID>>>> VendorCostRollup;
 
+        [PXCopyPasteHiddenFields(typeof(POVendorInventory.isDefault))]
+        public POVendorInventorySelect<POVendorInventory,
+            InnerJoin<Vendor, On<BqlOperand<Vendor.bAccountID, IBqlInt>.IsEqual<POVendorInventory.vendorID>>,
+            LeftJoin<Location, On<BqlChainableConditionBase<TypeArrayOf<IBqlBinary>
+                .FilledWith<And<Compare<Location.bAccountID, Equal<POVendorInventory.vendorID>>>>>
+                .And<BqlOperand<Location.locationID, IBqlInt>.IsEqual<POVendorInventory.vendorLocationID>>>>>,
+            Where<POVendorInventory.inventoryID, Equal<Current<InventoryItem.inventoryID>>,
+                And<Where<Vendor.baseCuryID, Equal<Current<AccessInfo.baseCuryID>>, Or<Vendor.baseCuryID, IsNull>>>>, InventoryItem> VendorItems;
         #endregion Selects
 
         #region CacheAttached
@@ -79,7 +92,6 @@ namespace ASCISTARCustom
         //SWITCH TO ACTUAL LOOKUP?
 
         #endregion CacheAttached
-
 
         #region Event Handlers
 

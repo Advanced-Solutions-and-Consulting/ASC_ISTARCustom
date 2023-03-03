@@ -987,7 +987,7 @@ namespace ASCISTARCustom
                                 itemVendor = vitem;
                         }
                     }
-                    msg += $"Item Vendor:{itemVendor.VendorID} Default: {itemVendor.IsDefault}{Environment.NewLine}";
+                    msg += $"Item Vendor:{itemVendor?.VendorID} Default: {itemVendor?.IsDefault}{Environment.NewLine}";
 
 
                     if (itemExt.UsrPricingGRAMGold > 0.0m)

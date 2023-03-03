@@ -7,16 +7,15 @@ using PX.Data.BQL.Fluent;
 using PX.Objects.CS;
 using PX.Objects.CR;
 using PX.TM;
-using System.Diagnostics;
 using PX.Objects;
 using PX.Objects.IN;
 using PX.Objects.AP;
 using PX.Objects.PO;
 using System.Collections;
-//using InfoSmartSearch;
-using CRLocation = PX.Objects.CR.Standalone.Location;
 using System.Reflection;
 using ASCISTARCustom.PDS.CacheExt;
+using ASCISTARCustom.Inventory.DAC;
+using ASCISTARCustom.Inventory.CacheExt;
 
 namespace ASCISTARCustom
 {
@@ -203,13 +202,21 @@ namespace ASCISTARCustom
         protected void APVendorPrice_UsrIncrementPerGram_CacheAttached(PXCache sender) { }
 
         [PXMergeAttributes(Method = MergeMethod.Append)]
-     //   [PXDBDefault(typeof(INKitSpecHdr.kitInventoryID))]
+        //   [PXDBDefault(typeof(INKitSpecHdr.kitInventoryID))]
         [PXDefault(typeof(INKitSpecHdr.kitInventoryID))]
         protected void APVendorPrice_InventoryID_CacheAttached(PXCache sender) { }
 
         #endregion
 
         #region Event Handlers
+
+        protected virtual void _(Events.RowInserted<INKitSpecHdr> e)
+        {
+            var row = e.Row;
+            if (row == null || this.Base.Hdr.Current == null) return;
+
+            CopyJewelryItemFields(this.Base.Hdr.Current);
+        }
 
         protected virtual void POVendorInventory_UsrVendorDefault_FieldUpdated(PXCache cache, PXFieldUpdatedEventArgs e, PXFieldUpdated InvokeBaseHandler)
         {
@@ -258,7 +265,7 @@ namespace ASCISTARCustom
         //        And<INKitSpecStkDet.revisionID, Equal<Current<INKitSpecHdr.revisionID>>>>>.
         //        Select(cache.Graph, row.KitInventoryID, row.RevisionID))
         //    {
-                
+
         //    }
         //        if (e.Row != null && (ext.Cost TotalCostStock == null || e.Row.TotalCostNonStock == null))
         //    {
@@ -356,10 +363,10 @@ namespace ASCISTARCustom
                 //if (row.UOM == "")
                 //{
                 decimal rowWeight = 0.00m;
-                    rowWeight = row.DfltCompQty.Value;
-                    if (row.UOM == "DWT")
-                        rowWeight *= 1.555174m;
-                    WeightRollup += rowWeight;
+                rowWeight = row.DfltCompQty.Value;
+                if (row.UOM == "DWT")
+                    rowWeight *= 1.555174m;
+                WeightRollup += rowWeight;
                 //}
 
                 PXTrace.WriteInformation($"WeightRollup:{WeightRollup} to be converted {priceAsUnit.UsrPriceToUnit.Trim()}/{priceAsItem.InventoryCD.Trim()}");
@@ -437,12 +444,14 @@ namespace ASCISTARCustom
             INKitSpecHdr row = e.Row as INKitSpecHdr;
             if (row == null)
                 return;
-            if (PXAccess.GetCompanyName() != "PDS")
-            {
-                PXUIFieldAttribute.SetVisible<INKitSpecHdr.revisionID>(cache, row, false);
-                e.NewValue = "01";
-            }
-        
+
+            SetVisibleRevisionID();
+            //if (PXAccess.GetCompanyName() != "PDS")
+            //{
+            //    PXUIFieldAttribute.SetVisible<INKitSpecHdr.revisionID>(cache, row, false);
+            //    e.NewValue = "01";
+            //}
+
         }
         //        protected virtual void _(Events.FieldSelecting<INKitSpecHdr, INKitSpecHdr.revisionID> e)
         protected void INKitSpecHdr_RevisionID_FieldSelecting(PXCache cache, PXFieldSelectingEventArgs e, PXFieldSelecting InvokeBaseHandler)
@@ -453,11 +462,13 @@ namespace ASCISTARCustom
             INKitSpecHdr row = e.Row as INKitSpecHdr;
             if (row == null)
                 return;
-            if (PXAccess.GetCompanyName() != "PDS")
-            {
-                PXUIFieldAttribute.SetVisible<INKitSpecHdr.revisionID>(cache, row, false);
-            }
 
+            SetVisibleRevisionID();
+
+            //if (PXAccess.GetCompanyName() != "PDS")
+            //{
+            //    PXUIFieldAttribute.SetVisible<INKitSpecHdr.revisionID>(cache, row, false);
+            //}
         }
 
         //        protected virtual void _(Events.FieldDefaulting<INKitSpecStkDet, ASCIStarINKitSpecStkDetExt.usrUnitCost> e)
@@ -590,7 +601,7 @@ namespace ASCISTARCustom
                 ext.UsrUnitPct = 0.00m;
                 PXUIFieldAttribute.SetEnabled<ASCIStarINKitSpecStkDetExt.usrUnitPct>(cache, e.Row, true);
             }
-            else 
+            else
             {
                 PXTrace.WriteInformation($"Enabling Percentage");
                 PXUIFieldAttribute.SetEnabled<ASCIStarINKitSpecStkDetExt.usrUnitCost>(cache, e.Row, true);
@@ -767,7 +778,7 @@ namespace ASCISTARCustom
 
             ASCIStarINKitSpecNonStkDetExt ext = row.GetExtension<ASCIStarINKitSpecNonStkDetExt>();
             PXTrace.WriteInformation($"e.NewValue:{ext.UsrCostingType}");
-            if(CostingType.WeightCost == (string)ext.UsrCostingType)
+            if (CostingType.WeightCost == (string)ext.UsrCostingType)
             {
                 row.DfltCompQty = 1.00m;
                 decimal qty = 0.00m;
@@ -777,7 +788,7 @@ namespace ASCISTARCustom
                 {
                     InventoryItem item = InventoryItem.PK.Find(cache.Graph, r.CompInventoryID);
                     PXTrace.WriteInformation($"item:{item.InventoryCD}");
-                    if(r.UOM == "DWT")
+                    if (r.UOM == "DWT")
                         qty += ((r.DfltCompQty ?? 0.00m) * 1.555170m);
                     else
                         qty += (r.DfltCompQty ?? 0.00m);
@@ -878,9 +889,9 @@ namespace ASCISTARCustom
             var row = (INKitSpecStkDet)e.Row;
             if (row == null) return;
             ASCIStarINKitSpecStkDetExt ext = cache.GetExtension<ASCIStarINKitSpecStkDetExt>(row);
-            if(ext.UsrUnitPct != 0.00m)
+            if (ext.UsrUnitPct != 0.00m)
             {
-                
+
             }
 
         }
@@ -910,7 +921,7 @@ namespace ASCISTARCustom
             //ext.UsrExtCost = ext.UsrUnitCost * row.DfltCompQty;
 
             INItemClass itemClass = INItemClass.PK.Find(cache.Graph, item.ItemClassID);
-            if(itemClass.ItemClassCD == CommodityClass.value)
+            if (itemClass.ItemClassCD == CommodityClass.value)
             {
                 ext = item.GetExtension<ASCIStarINInventoryItemExt>();
                 if (ext == null)
@@ -1193,7 +1204,7 @@ namespace ASCISTARCustom
 
             if (InvokeBaseHandler != null)
                 InvokeBaseHandler(cache, e);
-            
+
             INKitSpecNonStkDet row = (INKitSpecNonStkDet)e.Row;
             if (row == null)
                 return;
@@ -1280,5 +1291,61 @@ namespace ASCISTARCustom
             return adapter.Get();
         }
         #endregion
+
+
+        #region Helpers Methods
+
+        private void CopyJewelryItemFields(INKitSpecHdr kitSpecHdr)
+        {
+            var jewelItem = SelectFrom<INJewelryItemData>.Where<INJewelryItemData.inventoryID.IsEqual<P.AsInt>>.View.Select(this.Base, kitSpecHdr.KitInventoryID)?.TopFirst;
+
+            if (jewelItem == null) return;
+
+            ASCIStarINKitSpecJewelryItem jewelryKitItem = new ASCIStarINKitSpecJewelryItem()
+            {
+                KitInventoryID = kitSpecHdr.KitInventoryID,
+                RevisionID = kitSpecHdr.RevisionID,
+                ShortDesc = jewelItem.ShortDesc,
+                LongDesc = jewelItem.LongDesc,
+                StyleStatus = jewelItem.StyleStatus,
+                CustomerCode = jewelItem.CustomerCode,
+                InvCategory = jewelItem?.InvCategory,
+                ItemType = jewelItem?.ItemType,
+                ItemSubType = jewelItem?.ItemSubType,
+                Collection = jewelItem.Collection,
+                MetalType = jewelItem?.MetalType,
+                MetalNote = jewelItem.MetalNote,
+                MetalColor = jewelItem?.MetalColor,
+                Plating = jewelItem.Plating,
+                Finishes = jewelItem.Finishes,
+                VendorMaker = jewelItem.VendorMaker,
+                OrgCountry = jewelItem?.OrgCountry,
+                StoneType = jewelItem.StoneType,
+                WebNotesComment = jewelItem.WebNotesComment,
+                StoneComment = jewelItem.StoneComment,
+                StoneColor = jewelItem?.StoneColor,
+                StoneShape = jewelItem.StoneShape,
+                StoneCreation = jewelItem.StoneCreation,
+                GemstoneTreatment = jewelItem.GemstoneTreatment,
+                SettingType = jewelItem.SettingType,
+                Findings = jewelItem.Findings,
+                FindingsSubType = jewelItem.FindingsSubType,
+                ChainType = jewelItem.ChainType,
+                RingLength = jewelItem.RingLength,
+                RingSize = jewelItem.RingSize,
+                OD = jewelItem.OD,
+            };
+
+            this.JewelryItemView.Insert(jewelryKitItem);
+        }
+
+
+        private void SetVisibleRevisionID()
+        {
+            var inSetup = SelectFrom<INSetup>.View.Select(this.Base)?.TopFirst;
+            var inSetupExt = inSetup?.GetExtension<ASCIStarINSetupExt>();
+            PXUIFieldAttribute.SetVisible<INKitSpecHdr.revisionID>(this.Base.Hdr.Cache, this.Base.Hdr.Current, inSetupExt?.UsrIsPDSTenant == true);
+        }
+        #endregion Helpers Methods
     }
 }

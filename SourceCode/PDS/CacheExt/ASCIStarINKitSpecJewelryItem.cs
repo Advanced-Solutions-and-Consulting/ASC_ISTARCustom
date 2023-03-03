@@ -246,7 +246,7 @@ namespace ASCISTARCustom.PDS.CacheExt
         public abstract class settingType : BqlString.Field<settingType> { }
         #endregion
 
-        #region SettingType
+        #region Findings
         [PXDBString(10, IsUnicode = true)]
         [PXUIField(DisplayName = "Findings")]
         [PXSelector(typeof(Search<CSAttributeDetail.valueID, Where<CSAttributeDetail.attributeID, Equal<INAttributesID.findings>>, OrderBy<Asc<CSAttributeDetail.sortOrder>>>),

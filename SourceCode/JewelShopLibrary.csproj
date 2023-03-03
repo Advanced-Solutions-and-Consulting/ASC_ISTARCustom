@@ -84,6 +84,7 @@
     <Compile Include="DCLocation\DAC\ASCIStarSOLineExt.cs" />
     <Compile Include="Inventory\CacheExt\ASCIStarINInventoryItemExt.cs" />
     <Compile Include="Inventory\CacheExt\ASCIStarINItemClassExt.cs" />
+    <Compile Include="Inventory\CacheExt\ASCIStarINSetupExt.cs" />
     <Compile Include="Inventory\CacheExt\ASCIStarInventoryItemCommodity.cs" />
     <Compile Include="Inventory\DAC\INCompliance.cs" />
     <Compile Include="Inventory\DAC\INJewelryItemData.cs" />
